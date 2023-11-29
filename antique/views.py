@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from antique.forms import VerificationCodeForm
+from antique.forms import VerificationCodeForm, RegistrationForm
 from antique.models import CustomUser
 from .utils import send_SMS
 # Create your views here.
@@ -44,3 +44,14 @@ def verification_view(request):
                     return HttpResponseRedirect('/login/')    
     return render(request, 'user/verify.html', {'form': form})
 
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return HttpResponseRedirect('home') 
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'registration/register.html', {'form': form})
