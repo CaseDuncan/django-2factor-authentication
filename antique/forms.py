@@ -10,6 +10,7 @@ class VerificationCodeForm(forms.ModelForm):
 
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(label='Username', help_text='username')
+    email = forms.CharField(label='Email', help_text='email')
     password = forms.CharField(
         widget=forms.PasswordInput,
         help_text=password_validation.password_validators_help_text_html(),
@@ -17,7 +18,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['phone_number', 'password', 'username']
+        fields = ['phone_number', 'password', 'username', 'email']
 
     def clean_password(self):
         password = self.cleaned_data.get('password')

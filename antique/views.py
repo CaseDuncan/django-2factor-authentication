@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
@@ -19,7 +19,7 @@ def auth_view(request):
         user = authenticate(request,username=username, password=password)
         if user is not None:
             request.session['pk'] = user.pk
-            return HttpResponseRedirect('/verify/')
+            return redirect('/verify/')
     return render(request, 'user/login.html', {'form':form})
 
 def verification_view(request):
@@ -39,9 +39,9 @@ def verification_view(request):
                 if str(code) == verification_code:
                     code.save()
                     login(request, user)
-                    return HttpResponseRedirect('/submit_evaluation/')
+                    return redirect('/submit_evaluation/')
                 else:
-                    return HttpResponseRedirect('/login/')    
+                    return redirect('/login/')    
     return render(request, 'user/verify.html', {'form': form})
 
 def register(request):
@@ -50,7 +50,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect('/login') 
+            return redirect('/login') 
     else:
         form = RegistrationForm()
 
