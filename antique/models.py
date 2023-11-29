@@ -5,6 +5,11 @@ import random
 # Create your models here.
 class CustomUser(AbstractBaseUser):
     phone_number = models.CharField(max_length=12)
+    username = models.CharField(max_length=100)
+    email = models.EmailField(max_length=12, unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
 class VerificationCode(models.Model):
     code = models.CharField(max_length=5, blank=True)

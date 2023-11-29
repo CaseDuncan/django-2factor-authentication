@@ -22,3 +22,6 @@ class RegistrationForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         password_validation.validate_password(password, self.instance)
         return password
+class EvaluationRequestForm(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea)
+    contact_method = forms.ChoiceField(choices=[('phone', 'Phone'), ('email', 'Email')])
