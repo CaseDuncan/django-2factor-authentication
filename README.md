@@ -1,9 +1,7 @@
 # django-2factor-authentication
-Part B (90 marks)
 
 Lovejoy’s Antique Evaluation Web Application
-
-In this part of the coursework, you will develop a secure web application for a local antique dealer named Lovejoy.  Lovejoy wants a minimum viable product allowing customers to register and then request evaluations of potential antique objects.   Lovejoy has many rivals in the antique business who may sometimes resort to underhand tactics and so is very concerned about the security of the application.  
+You will develop a secure web application for a local antique dealer named Lovejoy.  Lovejoy wants a minimum viable product allowing customers to register and then request evaluations of potential antique objects.   Lovejoy has many rivals in the antique business who may sometimes resort to underhand tactics and so is very concerned about the security of the application.  
 Your secure web application will need to have these features for the minimum viable product (MVP) release: user registration and login, a password policy, “request evaluation” page and then an extension of the “request evaluation” page file upload to allow upload of photos. Finally, Lovejoy needs a request listing page.
 You should build Lovejoy’s MVP focusing on the following features in each task.  As well as the code, you should submit a report as described in the appendix below, where you will provide a self-reflection on the security and for each feature.  Mark allocation for each task are as described below and in the security analysis grid.  You should reflect upon your work and provide estimates of how much you’ve achieved by filling out the marking grid, which if completed will be allocated 5 marks. An example of self-reflection is provided in the Canvas. There are thus 35 marks for completing the application reasonably, 50 marks for the security features identified and implemented, and 5 marks for self-reflection.
 You have a choice of technologies from which to build the application:
