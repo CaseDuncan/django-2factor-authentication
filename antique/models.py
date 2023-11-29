@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import UserManager
 import random
 
 # Create your models here.
@@ -10,6 +11,11 @@ class CustomUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    class Meta:
+        db_table = u'customuser'
 
 class VerificationCode(models.Model):
     code = models.CharField(max_length=5, blank=True)

@@ -50,7 +50,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect('home') 
+            return HttpResponseRedirect('/login') 
     else:
         form = RegistrationForm()
 
