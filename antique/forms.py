@@ -1,6 +1,7 @@
+from tkinter import Widget
 from django import forms
 from django.contrib.auth import password_validation
-from antique.models import VerificationCode, CustomUser
+from antique.models import Evaluation, VerificationCode, CustomUser
 
 class VerificationCodeForm(forms.ModelForm):
     code = forms.CharField(label='code', help_text='enter SMS verification Number')
@@ -27,3 +28,6 @@ class RegistrationForm(forms.ModelForm):
 class EvaluationRequestForm(forms.Form):
     comment = forms.CharField(widget=forms.Textarea)
     contact_method = forms.ChoiceField(choices=[('phone', 'Phone'), ('email', 'Email')])
+    class Meta:
+        model = Evaluation
+        fields = ['comment', 'contact_method', 'userId']

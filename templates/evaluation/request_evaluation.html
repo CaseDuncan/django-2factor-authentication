@@ -1,0 +1,35 @@
+ {% extends "base.html" %} 
+
+
+{% block content%}
+<div>
+<div class="bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4 font-bold text-center fw-bold">Request Evaluation</h1>
+  </div>
+
+  <form action="/create_evaluation/" method="POST">
+    {% csrf_token %}
+    <div class="form-floating">
+    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <label for="floatingTextarea2">Details</label>
+    </div>
+
+    <div class="form-floating mt-4">
+        <select class="form-select" name="contact_method" id="floatingSelect" aria-label="Floating label select example">
+          <option selected disabled>Select contact mode</option>
+          <option value="phone">Phone</option>
+          <option value="email">Email</option>
+        </select>
+        <label for="floatingSelect">Method of contact</label>
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-primary font-bold">Submit Evaluation</button>
+      </div>
+</form>
+{% if user.is_authenticated %}
+<p>Welcome, {{ user.email }}. Thanks for logging in.</p>
+{% else %}
+<p>Welcome, new user. Please log in.</p>
+{% endif %}
+</div>
+{% endblock content%}
