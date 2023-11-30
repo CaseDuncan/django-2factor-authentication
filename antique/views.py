@@ -65,16 +65,20 @@ def create_evaluation(request):
     form = EvaluationRequestForm(request.POST, request.FILES)
     if request.method == "POST":
         if form.is_valid():
+
             evaluation_request = form.save(commit=False)
             evaluation_request.user = request.user
             evaluation_request.save()
 
             return HttpResponse("form submited thanks")   
         return redirect('/listings')
+            # Evaluation.objects.create(user_id = user.id , comment = form.cleaned_data.get('comment') , contact_method = form.cleaned_data.get('contact_method'))
+            # return redirect("/listings")    
+
     else:
         form = EvaluationRequestForm()
         return render(request, "evaluation/request_evaluation.html", {"form": form})
     
 def evaluation_listings(request):
-
-    return render(request)
+    listings = Evaluation.objects.all()
+    return render(request , 'evaluation/evaluation_listing.html' ,{'listings' : listings})
