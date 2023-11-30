@@ -66,7 +66,7 @@ def create_evaluation(request):
     form = EvaluationRequestForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
-            Evaluation.objects.create(user_id = user.id , comment = form.cleaned_data.get('comment') , contact_method = form.cleaned_data.get('comment'))
+            Evaluation.objects.create(user_id = user.id , comment = form.cleaned_data.get('comment') , contact_method = form.cleaned_data.get('contact_method'))
             return HttpResponse("form submited thanks")    
     else:
         form = EvaluationRequestForm()
