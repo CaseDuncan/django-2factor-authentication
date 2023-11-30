@@ -67,11 +67,11 @@ def create_evaluation(request):
     if request.method == "POST":
         if form.is_valid():
             Evaluation.objects.create(user_id = user.id , comment = form.cleaned_data.get('comment') , contact_method = form.cleaned_data.get('contact_method'))
-            return HttpResponse("form submited thanks")    
+            return redirect("/listings")    
     else:
         form = EvaluationRequestForm()
         return render(request, "evaluation/request_evaluation.html", {"form": form})
     
 def evaluation_listings(request):
-
-    return render(request)
+    listings = Evaluation.objects.all()
+    return render(request , 'evaluation/evaluation_listing.html' ,{'listings' : listings})

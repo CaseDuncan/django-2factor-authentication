@@ -2,5 +2,30 @@
 
 {% block content%}
 
-    <h1>Listing Page</h1>
+<div class="container mt-5">
+    <div class="bg-light p-5 rounded-lg m-3">
+        <h1 class="display-4 font-bold text-center fw-bold">Request Evaluation Listings</h1>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Contact Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for listing in listings %}
+        <tr>
+          <td>{{listing.id}}</td>
+          <td><img src="https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png" 
+            alt="Image 1" class="img-fluid " style="width:50px; border-radius:25px" ></td>
+          <td>{{listing.comment}}</td>
+          <td>{{listing.contact_method}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock content%}

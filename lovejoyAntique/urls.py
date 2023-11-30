@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from antique.views import auth_view, create_evaluation, evaluation, verification_view, register
+from antique.views import auth_view, create_evaluation, evaluation, evaluation_listings, verification_view, register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,5 +9,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('evaluation/' , evaluation , name='evaluation'),
     path('create_evaluation/' , create_evaluation , name='create_evaluation'),
-    path('listings/' , create_evaluation , name='listings')
+    path('listings/' , evaluation_listings , name='listings')
 ]
