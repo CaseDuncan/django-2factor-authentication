@@ -8,5 +8,6 @@ urlpatterns = [
     path('verify/', verification_view, name='verify'),
     path('register/', register, name='register'),
     path('evaluation/' , evaluation , name='evaluation'),
-    path('create_evaluation/' , create_evaluation , name='create_evaluation')
+    path('create_evaluation/' , create_evaluation , name='create_evaluation'),
+    path('listings/' , create_evaluation , name='listings')
 ]

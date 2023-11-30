@@ -71,3 +71,7 @@ def create_evaluation(request):
     else:
         form = EvaluationRequestForm()
         return render(request, "evaluation/request_evaluation.html", {"form": form})
+    
+def evaluation_listings(request):
+
+    return render(request)
