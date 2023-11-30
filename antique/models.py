@@ -51,7 +51,7 @@ class CustomUser(AbstractBaseUser):
     objects = UserManager()
 
     class Meta:
-        db_table = u'customuser'
+        db_table = 'customuser'
 
 class VerificationCode(models.Model):
     code = models.CharField(max_length=5, blank=True)
@@ -72,3 +72,9 @@ class VerificationCode(models.Model):
         verify_code = "".join(str(item) for item in code_items)
         self.code = verify_code
         super().save(*args, **kwargs)
+
+
+class Evaluation(models.Model):
+    comment = models.CharField(max_length=1000 , blank=False)
+    contact_method = models.CharField(max_length=1000 , blank=False)
+    user = models.ForeignKey(CustomUser , on_delete=models.CASCADE, related_name='evaluations')
