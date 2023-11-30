@@ -3,7 +3,6 @@ from django.urls import path
 
 from antique.views import auth_view, verification_view, register
 from django.contrib.auth.views import (
-    LogoutView, 
     PasswordResetView, 
     PasswordResetDoneView, 
     PasswordResetConfirmView,
