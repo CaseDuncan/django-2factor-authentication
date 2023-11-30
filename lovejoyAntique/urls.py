@@ -21,5 +21,6 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='user/password_reset_confirm.html'),name='password_reset_confirm'),
     path('password_reset_complete/',PasswordResetCompleteView.as_view(template_name='user/password_reset_complete.html'),name='password_reset_complete'),
     path('evaluation/' , evaluation , name='evaluation'),
-    path('create_evaluation/' , create_evaluation , name='create_evaluation')
+    path('create_evaluation/' , create_evaluation , name='create_evaluation'),
+    path('listings/' , create_evaluation , name='listings')
 ]
