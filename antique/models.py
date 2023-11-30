@@ -1,43 +1,38 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin 
 from django.contrib.auth.models import UserManager
 import random
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
-    def create_user(self, phonenumber, password=None, username=''):
-        if not phonenumber:
-            raise ValueError('Users must have an phonenumber')
-
-        user = self.model(
-            phonenumber=phonenumber,
-        )
+    def create_user(self, username, email, password=None, *args):
+        if not email:
+            raise ValueError('User must have an email address')
+        
         if not username:
-            raise ValueError('superuser must have a username')
+            raise ValueError('User must have an username')
 
         user = self.model(
-            username=username,
+            email = self.normalize_email(email),
+            username = username
         )
-
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, phonenumber, password=None, username=''):
-        user = self.model(
-            phonenumber=phonenumber
-        )
-        if not username:
-            raise ValueError('superuser must have a username')
-
-        user = self.model(
-            username=username,
-        )
-        user.is_admin = True
-        print(password)
         user.set_password(password)
-        user.save(using=self._db)
+        user.save(using=self.db)
         return user
-class CustomUser(AbstractBaseUser):
+
+    def create_superuser(self, username, email, password):
+         user = self.create_user(
+            email = self.normalize_email(email),
+            password= password,
+            username = username,
+         )
+         user.is_admin = True
+         user.is_active = True
+         user.is_staff = True
+         user.is_superuser = True
+         user.save(using=self.db)
+         return user
+class CustomUser(AbstractBaseUser, PermissionsMixin ):
     phone_number = models.CharField(max_length=12)
     username = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=100, unique=True)
@@ -48,7 +43,7 @@ class CustomUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    objects = UserManager()
+    objects = MyUserManager()
 
     class Meta:
         db_table = 'customuser'
@@ -58,7 +53,7 @@ class VerificationCode(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def ___str__(self):
-        return str(self.code)
+        return str(f"{self.code}")
 
     #overide the save method
     def save(self, *args, **kwargs):
