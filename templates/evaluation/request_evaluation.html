@@ -22,12 +22,16 @@
         </select>
         <label for="floatingSelect">Method of contact</label>
       </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Antique Image</label>
+        <input class="form-control" type="file" id="formFile" name="antique_img">
+      </div>
       <div class="mt-4">
         <button type="submit" class="btn btn-primary font-bold">Submit Evaluation</button>
       </div>
 </form>
 {% if user.is_authenticated %}
-<p>Welcome, {{ user.email }}. Thanks for logging in.</p>
+<p>Welcome, <span class="text-success text-capitalize">{{ user.username }}</span>. Thanks for logging in.</p>
 {% else %}
 <p>Welcome, new user. Please log in.</p>
 {% endif %}

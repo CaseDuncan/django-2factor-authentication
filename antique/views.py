@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from antique.forms import EvaluationRequestForm, VerificationCodeForm, RegistrationForm
-from antique.models import CustomUser, Evaluation
+from antique.models import CustomUser, Evaluation, VerificationCode
 from .utils import send_SMS
 # Create your views here.
 @login_required
@@ -20,7 +20,7 @@ def auth_view(request):
         user = authenticate(request,username=username, password=password)
         if user is not None:
             request.session['pk'] = user.pk
-            return redirect('/verify/')
+            return redirect('/verify')
     return render(request, 'user/login.html', {'form':form})
 
 def verification_view(request):
@@ -40,7 +40,7 @@ def verification_view(request):
                 if str(code) == verification_code:
                     code.save()
                     login(request, user)
-                    return redirect('/submit_evaluation/')
+                    return redirect('/submit_evaluation')
                 else:
                     return redirect('/login/')    
     return render(request, 'user/verify.html', {'form': form})
@@ -62,12 +62,15 @@ def evaluation(request):
     return render(request , 'evaluation/request_evaluation.html')
 
 def create_evaluation(request):
-    user = request.user
-    form = EvaluationRequestForm(request.POST)
+    form = EvaluationRequestForm(request.POST, request.FILES)
     if request.method == "POST":
         if form.is_valid():
-            Evaluation.objects.create(user_id = user.id , comment = form.cleaned_data.get('comment') , contact_method = form.cleaned_data.get('contact_method'))
-            return HttpResponse("form submited thanks")    
+            evaluation_request = form.save(commit=False)
+            evaluation_request.user = request.user
+            evaluation_request.save()
+
+            return HttpResponse("form submited thanks")   
+        return redirect('/listings')
     else:
         form = EvaluationRequestForm()
         return render(request, "evaluation/request_evaluation.html", {"form": form})
